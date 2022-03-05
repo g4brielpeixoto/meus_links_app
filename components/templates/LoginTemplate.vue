@@ -9,6 +9,7 @@
         <UsernameInput @changeUsername="changeUsername"/>
         <PasswordInput @changePassword="changePassword"/>
         <MainButton type="submit" text="ENTRAR" />
+        <Shortcut  text="Esqueceu a senha?" to="/forgot-password"/>
       </form>
     </Container>
   </div>
@@ -49,9 +50,6 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .logo {
   width: 9.3rem;
-}
-.header {
-  justify-content: start;
 }
 .container {
   grid-gap: 1.5rem;

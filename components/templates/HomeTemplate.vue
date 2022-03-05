@@ -5,8 +5,12 @@
       <NuxtLink to="/register">Criar conta</NuxtLink>
     </HamburgerMenu>
     <Header class="desktop-header">
-      <FirstButton text="Login" to="/login" />
-      <SecondButton text="Criar conta"/>
+      <NuxtLink to="/login">
+        <FirstButton text="Login"/>
+      </NuxtLink>
+      <NuxtLink to="/register">
+        <SecondButton text="Criar conta"/>
+      </NuxtLink>
     </Header>
     <Container>
       <Logo />
@@ -14,7 +18,9 @@
         <Title text="Reúna e compartilhe suas ideias sem dor de cabeça." />
         <SubTitle text="Conecte seu público ao seu conteúdo com apenas um link." />
       </div>
-      <MainButton text="Começar agora" />
+      <NuxtLink to="/register">
+        <MainButton text="Começar agora" />
+      </NuxtLink>
     </Container>
   </div>
 </template>

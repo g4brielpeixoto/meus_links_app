@@ -1,6 +1,8 @@
 <template>
   <div class="logo">
-    <img src="@/assets/images/logo.svg" alt="Meus Links" />
+    <NuxtLink to="/">
+      <img src="@/assets/images/logo.svg" alt="Meus Links" />
+    </NuxtLink>
   </div>
 </template>
 

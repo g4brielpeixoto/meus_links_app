@@ -5,11 +5,12 @@
     </Header>
     <Container>
       <Title text="Crie uma conta gratuitamente." />
-      <form class="form" @submit.prevent="onSubmit">
-        <UsernameInput v-model="username"/>
-        <Input v-model="email" name="email" type="email" placeholder="E-mail" />
-        <PasswordInput v-model="password"/>
+      <form class="form" @submit.prevent="register()">
+        <UsernameInput @changeUsername="changeUsername"/>
+        <BaseInput  name="email" type="email" placeholder="E-mail" @changeValue="changeEmail" />
+        <PasswordInput @changePassword="changePassword"/>
         <MainButton type="submit" text="CRIAR CONTA" />
+        <Shortcut text="Já tem uma conta?" to="/login"/>
       </form>
     </Container>
   </div>
@@ -25,7 +26,27 @@ export default Vue.extend({
       email: '',
       password: ''
     }
-  }
+  },
+  methods: {
+    changeUsername(username: string) {
+      this.username = username
+    },
+    changeEmail(email: string) {
+      this.email = email
+    },
+    changePassword(password: string) {
+      this.password = password
+    },
+    async register() {
+      const user = {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        redirectUrl: 'http://localhost:3000/'
+      }
+      await this.$store.dispatch('register', user)
+    }
+  },
 })
 </script>
 

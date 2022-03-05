@@ -1,8 +1,6 @@
 <template>
   <button class="button">
-    <NuxtLink :to="to">
       {{ text }}
-    </NuxtLink>
   </button>
 </template>
 
@@ -12,10 +10,6 @@ import Vue from 'vue'
 export default Vue.extend({
   props: {
     text: {
-      type: String,
-      required: true
-    },
-    to: {
       type: String,
       required: true
     }

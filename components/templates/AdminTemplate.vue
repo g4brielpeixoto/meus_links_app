@@ -1,9 +1,9 @@
 <template>
   <div class="admin-template">
-    <HamburgerMenu class="mobile-header">
+    <!-- <HamburgerMenu class="mobile-header">
       <NuxtLink to="/login">Ver Links</NuxtLink>
       <NuxtLink to="/register">Logout</NuxtLink>
-    </HamburgerMenu>
+    </HamburgerMenu> -->
 
     <Header class="desktop-header">
       <FirstButton text="Ver Links" to="/" />
@@ -32,6 +32,8 @@
 <script lang="ts" scoped>
 import Vue from 'vue'
 import Draggable from 'vuedraggable'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { $cookies } from '@/utils/nuxt-instance'
 
 export default Vue.extend({
   components: { Draggable },
@@ -47,9 +49,9 @@ export default Vue.extend({
     }
   },
   methods: {
-    logout() {
-      console.log(this.$store.getters.token)
-      this.$store.dispatch('auth/logout')
+    async logout() {
+      await this.$store.dispatch('auth/logout')
+      this.$router.push('/login')
     }
   }
 })

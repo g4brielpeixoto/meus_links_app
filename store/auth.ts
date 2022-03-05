@@ -33,10 +33,9 @@ export const actions: ActionTree<RootState, RootState> = {
   },
 
   async logout({ commit }) {
-    console.log(this.getters.$token)
-    await this.$axios.$delete('/auth', { headers: {
-      'Authorization': `bearer ${this.state.token}`
-    }})
+    await this.$axios.$delete('/auth', {
+      headers: {'Authorization': `bearer ${this.$cookies.get('token')}`}
+    })
     this.$cookies.remove('token')
     commit('DESTROY')
   }

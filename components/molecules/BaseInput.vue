@@ -1,5 +1,5 @@
 <template>
-    <input class="input" :type="type" :name="name" :placeholder="placeholder" >
+  <input v-model="value" class="input" :type="type" :name="name" :placeholder="placeholder" >
 </template>
 
 <script lang="ts">
@@ -18,6 +18,16 @@ export default Vue.extend({
     placeholder: {
       type: String,
       required: true
+    }
+  },
+  data() {
+    return {
+      value: ''
+    }
+  },
+  watch: {
+    value() {
+      this.$emit('changeValue', this.value)
     }
   }
 })
