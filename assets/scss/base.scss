@@ -62,9 +62,9 @@ body {
   margin: 2rem auto;
   cursor: pointer;
   &.error {
-    background: $pink;
+    background: red;
   }
   &.success {
-    background: $green;
+    background: green;
   }
 }
