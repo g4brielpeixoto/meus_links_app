@@ -12,7 +12,7 @@
 
     <div class="main">
       <AddLink text="+ Adicionar novo link" @click="addLink"/>
-      <EmptyList v-show="listIsEmpty(user)"/>
+      <EmptyList v-if="isEmpty"/>
       <Draggable :list="user.links">
         <transition-group class="list" name="flip-list">
           <LinkEditor  
@@ -21,6 +21,7 @@
             :text="link.title"
             :link="link.url"
             :state="link.active"
+            @delete="deleteLink(link)"
           />
         </transition-group>
       </Draggable>
@@ -32,7 +33,7 @@
 <script lang="ts" scoped>
 import Vue from 'vue'
 import Draggable from 'vuedraggable'
-import { User } from '@/Models'
+import { User, Link } from '@/Models'
 import { $cookies } from '@/utils/nuxt-instance'
 
 export default Vue.extend({
@@ -40,16 +41,18 @@ export default Vue.extend({
   layout: 'meus_links',
   data() {
     return {
-      user: {} as User
+      user: {} as User,
+      isEmpty: false
     }
   },
-  async mounted() {
+  async created() {
     const user = await this.$axios.$get('/register', {
       headers: {'Authorization': `bearer ${$cookies.get('token')}`}
     })
     if (user)  {
       this.user = user
       this.user.links = []
+      this.listIsEmpty()
     }
   },
   methods: {
@@ -57,10 +60,13 @@ export default Vue.extend({
       await this.$store.dispatch('auth/logout')
       this.$router.push('/login')
     },
-    listIsEmpty(user: User) {
-      // eslint-disable-next-line no-constant-condition
-      return true ? user.links.length === 0 : false
+
+    listIsEmpty() {
+      if(this.user.links.length === 0)
+        this.isEmpty = true
+      else this.isEmpty = false
     },
+
     addLink() {
       this.user.links.push({
         id: new Date().getTime(),
@@ -68,6 +74,12 @@ export default Vue.extend({
         url: '',
         active: false
       })
+      this.listIsEmpty()
+    },
+
+    deleteLink(linkToDelete: Link) {
+      this.user.links = this.user.links.filter((link) => link.id !== linkToDelete.id)
+      this.listIsEmpty()
     }
   }
 })
