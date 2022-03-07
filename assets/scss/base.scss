@@ -53,3 +53,18 @@ body {
     outline: none;
   }
 }
+
+.notifications {
+  color: #fff;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 1rem 1rem;
+  margin: 2rem auto;
+  cursor: pointer;
+  &.error {
+    background: $pink;
+  }
+  &.success {
+    background: $green;
+  }
+}

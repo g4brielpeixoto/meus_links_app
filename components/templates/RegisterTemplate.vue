@@ -42,9 +42,15 @@ export default Vue.extend({
         username: this.username,
         email: this.email,
         password: this.password,
-        redirectUrl: 'http://localhost:3000/'
+        redirectUrl: 'http://localhost:3000/confirm',
       }
+
       await this.$store.dispatch('register', user)
+      this.$notify({
+        type: 'success',
+        text: 'Bem-vindo ao Meus Links! Verifique seu email para ativar sua conta!',
+        duration: 10000
+      })
     }
   },
 })

@@ -11,16 +11,16 @@
     </Header>
 
     <div class="main">
-      <AddLink text="+ Adicionar novo link"/>
-      <EmptyList v-show="emptyList"/>
-      <Draggable :list="list">
+      <AddLink text="+ Adicionar novo link" @click="addLink"/>
+      <EmptyList v-show="listIsEmpty(user)"/>
+      <Draggable :list="user.links">
         <transition-group class="list" name="flip-list">
           <LinkEditor  
-            v-for="link in list"
-            :key="link.text"
-            :text="link.text"
-            :link="link.link"
-            :state="link.state"
+            v-for="link in user.links"
+            :key="link.id"
+            :text="link.title"
+            :link="link.url"
+            :state="link.active"
           />
         </transition-group>
       </Draggable>
@@ -32,7 +32,7 @@
 <script lang="ts" scoped>
 import Vue from 'vue'
 import Draggable from 'vuedraggable'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { User } from '@/Models'
 import { $cookies } from '@/utils/nuxt-instance'
 
 export default Vue.extend({
@@ -40,18 +40,34 @@ export default Vue.extend({
   layout: 'meus_links',
   data() {
     return {
-      emptyList: false,
-      list: [
-        { text: 'Facebook', link: 'https://www.facebook.com.br', state: true, dragged: false},
-        { text: 'Instagram', link: 'https://www.instagram.com.br', state: true, dragged: false},
-        { text: 'Youtube', link: 'https://www.youtube.com.br', state: true, dragged: false}
-      ],
+      user: {} as User
+    }
+  },
+  async mounted() {
+    const user = await this.$axios.$get('/register', {
+      headers: {'Authorization': `bearer ${$cookies.get('token')}`}
+    })
+    if (user)  {
+      this.user = user
+      this.user.links = []
     }
   },
   methods: {
     async logout() {
       await this.$store.dispatch('auth/logout')
       this.$router.push('/login')
+    },
+    listIsEmpty(user: User) {
+      // eslint-disable-next-line no-constant-condition
+      return true ? user.links.length === 0 : false
+    },
+    addLink() {
+      this.user.links.push({
+        id: new Date().getTime(),
+        title: '',
+        url: '',
+        active: false
+      })
     }
   }
 })

@@ -33,8 +33,11 @@ export default Vue.extend({
         await this.$store.dispatch('auth/login', { username: this.username, password: this.password })      
         this.$router.push('/admin')
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error)
+        this.$notify({
+        type: 'error',
+        text: 'Apelido ou senha inválidos!',
+        duration: 5000
+      })
       }
     },
     changeUsername(username: string) {

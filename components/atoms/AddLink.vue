@@ -1,5 +1,5 @@
 <template>
-  <button :type="type" class="add-link">
+  <button :type="type" class="add-link" @click="$emit('click')">
       {{ text }}
   </button>
 </template>

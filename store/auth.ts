@@ -1,4 +1,5 @@
 import { ActionTree } from 'vuex'
+import { $cookies } from '@/utils/nuxt-instance'
 
 type Token = string | null
 interface User  {
@@ -34,7 +35,7 @@ export const actions: ActionTree<RootState, RootState> = {
 
   async logout({ commit }) {
     await this.$axios.$delete('/auth', {
-      headers: {'Authorization': `bearer ${this.$cookies.get('token')}`}
+      headers: {'Authorization': `bearer ${$cookies.get('token')}`}
     })
     this.$cookies.remove('token')
     commit('DESTROY')
