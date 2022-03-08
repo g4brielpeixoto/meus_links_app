@@ -18,10 +18,9 @@
           <LinkEditor  
             v-for="link in user.links"
             :key="link.id"
-            :text="link.title"
-            :link="link.url"
-            :state="link.active"
+            :link-prop="link"
             @delete="deleteLink(link)"
+            @change="changeLink"
           />
         </transition-group>
       </Draggable>
@@ -45,13 +44,12 @@ export default Vue.extend({
       isEmpty: false
     }
   },
-  async created() {
+  async mounted() {
     const user = await this.$axios.$get('/register', {
       headers: {'Authorization': `bearer ${$cookies.get('token')}`}
     })
     if (user)  {
       this.user = user
-      this.user.links = []
       this.listIsEmpty()
     }
   },
@@ -80,6 +78,26 @@ export default Vue.extend({
     deleteLink(linkToDelete: Link) {
       this.user.links = this.user.links.filter((link) => link.id !== linkToDelete.id)
       this.listIsEmpty()
+      this.save()
+    },
+    
+    changeLink(linkToUpdate: Link) {
+      this.user.links.forEach((link) => {
+        if(link.id === linkToUpdate.id)
+          link = linkToUpdate
+      })
+      this.save()
+    },
+
+    async save() {
+      try {
+        const { name, links } = this.user
+        await this.$axios.$put('/register', { name, links }, {
+          headers: {'Authorization': `bearer ${$cookies.get('token')}`}
+        })        
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 })
@@ -131,7 +149,5 @@ export default Vue.extend({
 @include screen('small') {
   
 }
-
-
 
 </style>
