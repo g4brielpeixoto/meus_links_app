@@ -60,6 +60,7 @@ export default Vue.extend({
     },
 
     listIsEmpty() {
+      if(!this.user.links) this.user.links = []
       if(this.user.links.length === 0)
         this.isEmpty = true
       else this.isEmpty = false
