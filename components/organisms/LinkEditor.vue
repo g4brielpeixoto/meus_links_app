@@ -3,11 +3,25 @@
   <div class="link-editor">
     <img class="handle" src="@/assets/images/three-dots-vertical.svg">
     <div class="inputs">
-      <input  v-model="title" class="input text" name="Texto" type="text" placeholder="Texto"/>
-      <input v-model="url" class="input link" name="Link" type="text" placeholder="Link"/>
+      <input  
+        v-model="link.title" 
+        class="input text" 
+        name="Texto" 
+        type="text" 
+        placeholder="Texto" 
+        @blur="$emit('change', link)"
+      />
+      <input 
+        v-model="link.url" 
+        class="input link" 
+        name="Link" 
+        type="text" 
+        placeholder="Link" 
+        @blur="$emit('change', link)"
+      />
     </div>
     <div class="actions">
-      <Switcher :state="active" @toggleState="active = !active"/>
+      <Switcher :state="link.active" @toggleState="toggleState()"/>
       <button class="button-trash" @click="$emit('delete')">
         <svg class="trash" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 30 30" width="30px" height="30px">
           <g id="surface75143999">
@@ -15,28 +29,31 @@
           </g>
         </svg>
       </button>
-
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { Link } from '@/Models'
 
 export default Vue.extend({
   props: {
-    title: {
-      type: String,
+    linkProp: {
+      type: Object,
       required: true
-    },
-    url: {
-      type: String,
-      required: true
-    },
-    active: {
-      type: Boolean,
-      required: true
-    },
+    }
+  },
+  data() {
+    return {
+      link: this.linkProp as Link
+    }
+  },
+  methods: {
+    toggleState() {
+      this.link.active = !this.link.active
+      this.$emit('change', this.link)
+    }
   }
 })
 </script>
