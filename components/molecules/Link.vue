@@ -1,7 +1,5 @@
 <template>
-  <div class="link">
-    <a :href="url" target="_blank">{{ title }}</a>
-  </div>
+  <a class="link" :href="url" target="_blank">{{ title }}</a>
 </template>
 
 <script lang="ts">
@@ -24,7 +22,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .link {
   color: $white;
-  padding: 1rem;
+  padding: 0.8rem 1rem;
   border-radius: 3rem;
   text-align: center;
   background-color: $pink;
