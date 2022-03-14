@@ -1,5 +1,4 @@
 <template>
-<!--eslint-disable vue/no-mutating-props-->
   <div class="link-editor">
     <img class="handle" src="@/assets/images/three-dots-vertical.svg">
     <div class="inputs">
@@ -8,8 +7,8 @@
         class="input text" 
         name="Texto" 
         type="text" 
-        placeholder="Texto" 
-        @blur="$emit('change', link)"
+        placeholder="Título" 
+        @blur="$emit('changed', link)"
       />
       <input 
         v-model="link.url" 
@@ -17,7 +16,7 @@
         name="Link" 
         type="text" 
         placeholder="Link" 
-        @blur="$emit('change', link)"
+        @blur="$emit('changed', link)"
       />
     </div>
     <div class="actions">
@@ -52,7 +51,7 @@ export default Vue.extend({
   methods: {
     toggleState() {
       this.link.active = !this.link.active
-      this.$emit('change', this.link)
+      this.$emit('changed', this.link)
     }
   }
 })
@@ -85,7 +84,7 @@ export default Vue.extend({
       color: #4e4e4e;
       transition: 0.25s;
       padding: 0.2rem;
-      border-bottom: solid transparent 1px;;
+      border-bottom: solid transparent 1px;
     }
     .input:placeholder {
       color: $darkGray;
