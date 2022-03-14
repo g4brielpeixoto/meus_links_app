@@ -36,6 +36,7 @@ import { User, Link } from '@/Models'
 import { $cookies } from '@/utils/nuxt-instance'
 
 export default Vue.extend({
+
   components: { Draggable },
   layout: 'meus_links',
   data() {
@@ -44,6 +45,7 @@ export default Vue.extend({
       isEmpty: false
     }
   },
+
   async mounted() {
     const user = await this.$axios.$get('/register', {
       headers: {'Authorization': `bearer ${$cookies.get('token')}`}
@@ -53,6 +55,7 @@ export default Vue.extend({
       this.listIsEmpty()
     }
   },
+
   methods: {
     async logout() {
       await this.$store.dispatch('auth/logout')
@@ -90,24 +93,23 @@ export default Vue.extend({
       this.save()
     },
 
-    async save() {
-      try {
-        const { name, links } = this.user
-        await this.$axios.$put('/register', { name, links }, {
-          headers: {'Authorization': `bearer ${$cookies.get('token')}`}
-        })        
-      } catch (error) {
-        console.log(error)
-      }
+    async save() {     
+      const { name, links } = this.user
+      await this.$axios.$put('/register', { name, links }, {
+        headers: {'Authorization': `bearer ${$cookies.get('token')}`}
+      })
     }
+
   }
 })
+
 </script>
 
 <style lang="scss" scoped>
 .flip-list-move {
   transition: transform 0.3s;
 }
+
 .none-move {
   transition: transform 0s;
 }
@@ -124,6 +126,7 @@ export default Vue.extend({
   display: grid;
   margin: 1rem auto;
   justify-items: center;
+  
   .empty-list {
     margin-top: 5rem;
   }
