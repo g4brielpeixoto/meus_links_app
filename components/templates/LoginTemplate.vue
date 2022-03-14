@@ -17,8 +17,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { $cookies } from '@/utils/nuxt-instance'
 
 export default Vue.extend({
   data() {
@@ -34,10 +32,10 @@ export default Vue.extend({
         this.$router.push('/admin')
       } catch (error) {
         this.$notify({
-        type: 'error',
-        text: 'Apelido ou senha inválidos!',
-        duration: 5000
-      })
+          type: 'error',
+          text: 'Apelido ou senha inválidos!',
+          duration: 5000
+        })
       }
     },
     changeUsername(username: string) {
