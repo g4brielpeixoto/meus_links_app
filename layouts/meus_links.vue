@@ -12,12 +12,12 @@
 </template>
 
 <style lang="scss">
+body {
+  padding: 0;
+}
 .meus_links {
   display: grid;
   margin: 0 auto;
-}
-
-body {  
-  overflow: hidden;
+  margin-bottom: 2rem;
 }
 </style>
