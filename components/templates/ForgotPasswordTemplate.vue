@@ -5,7 +5,7 @@
     </Header>
     <Container>
       <Title text="Qual o seu e-mail cadastrado?" />
-      <form class="form" @submit.prevent="register()">
+      <form class="form" @submit.prevent="forgotPassword()">
         <BaseInput  name="email" type="email" placeholder="E-mail" @changeValue="changeEmail" />
         <MainButton type="submit" text="RECUPERAR SENHA" />
       </form>
@@ -19,55 +19,69 @@ import Vue from 'vue'
 export default Vue.extend({
   data() {
     return {
-      username: '',
-      email: '',
-      password: ''
+      email: ''
     }
   },
   methods: {
-    changeUsername(username: string) {
-      this.username = username
-    },
+  
     changeEmail(email: string) {
       this.email = email
     },
-    changePassword(password: string) {
-      this.password = password
-    },
+  
     async forgotPassword() {
+
       const user = {
-        username: this.username,
         email: this.email,
-        password: this.password,
-        redirectUrl: 'http://localhost:3000/confirm',
+        redirectUrl: 'http://localhost:3000/redefine-password',
       }
 
-      await this.$store.dispatch('register', user)
-      this.$notify({
-        type: 'success',
-        text: 'Bem-vindo ao Meus Links! Verifique seu email para ativar sua conta!',
-        duration: 10000
-      })
+      try {
+        
+        await this.$axios.$post('/forgot-password', user, {
+          headers: {
+            'Authorization': `bearer ${this.$cookies.get('token')}`
+          }
+        })
+
+        this.$router.push('/forgot-password/success')
+
+      } catch (error) {
+
+        this.$notify({
+          type: 'error',
+          text: 'E-mail não cadastrado',
+          duration: 5000
+        })
+
+      }
     }
   },
 })
+
 </script>
 
+
 <style lang="scss" scoped>
+
 .logo {
   width: 9.3rem;
 }
+
 .header {
   justify-content: start;
 }
+
 .container {
   grid-gap: 1.5rem;
 }
+
 .form {
   display: grid;
   grid-gap: 1rem;
 }
+
 .main-button {
   margin: 1rem auto;
 }
+
 </style>
