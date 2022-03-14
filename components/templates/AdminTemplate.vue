@@ -6,13 +6,25 @@
     </HamburgerMenu> -->
 
     <Header class="desktop-header">
-      <FirstButton text="Ver Links" to="/" />
+      <Save v-if="changed" @save="save()"/>
+      <Saved v-else />
       <SecondButton text="Logout" @click="logout()" />
     </Header>
 
     <div class="main">
+      <Avatar />
+      <div class="user-info">
+        <input  
+          v-model="user.name" 
+          class="name" 
+          name="Nome" 
+          type="text" 
+          placeholder="Como quer ser chamado?"
+        />
+        <SubTitle :text="`@${user.username}`"/>
+      </div>
       <AddLink text="+ Adicionar novo link" @click="addLink"/>
-      <EmptyList v-if="isEmpty"/>
+      <EmptyList v-show="isEmpty"/>
       <Draggable :list="user.links">
         <transition-group class="list" name="flip-list">
           <LinkEditor  
@@ -20,7 +32,7 @@
             :key="link.id"
             :link-prop="link"
             @delete="deleteLink(link)"
-            @change="changeLink"
+            @changed="changeLink"
           />
         </transition-group>
       </Draggable>
@@ -32,27 +44,54 @@
 <script lang="ts" scoped>
 import Vue from 'vue'
 import Draggable from 'vuedraggable'
-import { User, Link } from '@/Models'
+import { Link } from '@/Models'
 import { $cookies } from '@/utils/nuxt-instance'
 
 export default Vue.extend({
 
   components: { Draggable },
+
   layout: 'meus_links',
+
   data() {
     return {
-      user: {} as User,
-      isEmpty: false
+      user: {
+        name: '',
+        username: '',
+        links: [] as Array<Link>
+      },
+      changed: false
     }
   },
 
+  computed: {
+    isEmpty() {
+      if (this.user.links.length === 0) return true
+      else return false
+    }
+  },
+
+  watch: {
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    'user.name'(value, oldValue) {
+      if(!oldValue) this.changed = false
+        else this.changed = true
+    },
+    'user.links': {
+      handler (value, oldValue) {
+        if(oldValue.length === 0) this.changed = false
+          else this.changed = true
+      },
+      deep: true
+    }
+  },
+  
   async mounted() {
     const user = await this.$axios.$get('/register', {
       headers: {'Authorization': `bearer ${$cookies.get('token')}`}
     })
     if (user)  {
       this.user = user
-      this.listIsEmpty()
     }
   },
 
@@ -62,13 +101,6 @@ export default Vue.extend({
       this.$router.push('/login')
     },
 
-    listIsEmpty() {
-      if(!this.user.links) this.user.links = []
-      if(this.user.links.length === 0)
-        this.isEmpty = true
-      else this.isEmpty = false
-    },
-
     addLink() {
       this.user.links.push({
         id: new Date().getTime(),
@@ -76,13 +108,11 @@ export default Vue.extend({
         url: '',
         active: false
       })
-      this.listIsEmpty()
     },
 
     deleteLink(linkToDelete: Link) {
       this.user.links = this.user.links.filter((link) => link.id !== linkToDelete.id)
-      this.listIsEmpty()
-      this.save()
+      // this.save()
     },
     
     changeLink(linkToUpdate: Link) {
@@ -90,7 +120,7 @@ export default Vue.extend({
         if(link.id === linkToUpdate.id)
           link = linkToUpdate
       })
-      this.save()
+      // this.save()
     },
 
     async save() {     
@@ -98,7 +128,8 @@ export default Vue.extend({
       await this.$axios.$put('/register', { name, links }, {
         headers: {'Authorization': `bearer ${$cookies.get('token')}`}
       })
-    }
+      this.changed = false
+    },
 
   }
 })
@@ -126,20 +157,35 @@ export default Vue.extend({
   display: grid;
   margin: 1rem auto;
   justify-items: center;
+  grid-gap: 1.25rem;
   
   .empty-list {
     margin-top: 5rem;
-  }
-
-  .add-link {
-    margin-bottom: 2rem;
   }
 
 }
 
 .list {
   display: grid;
-  grid-gap: 1rem;
+  grid-gap: 1rem
+}
+
+.name {
+  background-color: $white;
+  font-family: Lufga-Semibold;
+  font-size: 1.8rem;
+  color: $black;
+  transition: 0.25s;
+  padding-bottom: 0.1rem;
+  border-bottom: solid transparent 1px;
+  text-align: center;
+  &::placeholder {
+    color: $darkGray;
+    text-align: center;
+  }
+  &:focus {
+    border-bottom: solid $darkGray 1px;
+  }
 }
 
 @include screen('large', 'infinity') {

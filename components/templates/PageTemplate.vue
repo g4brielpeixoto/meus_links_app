@@ -1,6 +1,7 @@
 <template>
   <Container class="page-template">
-    <Title :text="user.name"/>
+    <Avatar />
+    <Title v-if="user.name" :text="user.name"/>
     <SubTitle :text="`@${user.username}`"/>
     <EmptyList v-if="isEmpty"/>
     <div class="links">
@@ -59,13 +60,18 @@ export default Vue.extend({
 }
 
 .title {
-  font-size: 1.8rem
+  font-size: 1.8rem;
+  margin-top: 1.5rem;
 }
 
 .links {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   display: grid;
   grid-gap: 0.70rem;
+}
+
+.empty-list {
+  margin-top: 3rem;
 }
 
 </style>
