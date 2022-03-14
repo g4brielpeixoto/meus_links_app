@@ -15,6 +15,9 @@ import Vue from 'vue'
 
 export default Vue.extend({
   layout: 'meus_links',
+  async mounted() {
+    await this.$axios.$get(`/register/${this.$route.params.key}`)
+  }
 })
 </script>
 
