@@ -23,6 +23,5 @@ export default Vue.extend({
   font-family: Lufga-SemiBold;
   letter-spacing: -1px;
   margin: 0 auto;
-  /* font-size: 2rem; */
 }
 </style>
