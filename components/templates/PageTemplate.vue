@@ -1,18 +1,23 @@
 <template>
-  <Container class="page-template">
-    <Avatar />
-    <Title v-if="user.name" :text="user.name"/>
-    <SubTitle :text="`@${user.username}`"/>
-    <EmptyList v-if="isEmpty"/>
-    <div class="links">
-      <Link
-        v-for="link in user.links" 
-        :key="link.id" 
-        :title="link.title" 
-        :url="link.url"
-      />
-    </div>
-  </Container>
+  <div class="page-template">
+    <Container class="page-template">
+      <Avatar />
+      <Title v-if="user.name" :text="user.name"/>
+      <SubTitle :text="`@${user.username}`"/>
+      <EmptyList v-if="isEmpty"/>
+      <div class="links">
+        <Link
+          v-for="link in user.links" 
+          :key="link.id" 
+          :title="link.title" 
+          :url="link.url"
+        />
+      </div>
+    </Container>
+    <Footer>
+      <Logo />
+    </Footer>
+  </div>
 </template>
 
 <script lang="ts" scoped>
@@ -50,6 +55,9 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.avatar {
+  margin-bottom: 1.5rem;
+}
 
 .page-template {
   width: 100%;
@@ -61,8 +69,8 @@ export default Vue.extend({
 
 .title {
   font-size: 1.8rem;
-  margin-top: 1.5rem;
 }
+
 
 .links {
   margin-top: 1.5rem;
@@ -74,4 +82,10 @@ export default Vue.extend({
   margin-top: 3rem;
 }
 
+.footer {
+  justify-content: center;
+  .logo {
+    width: 9.3rem;
+  }
+}
 </style>
