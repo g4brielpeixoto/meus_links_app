@@ -10,6 +10,7 @@
         <PasswordInput @changePassword="changePassword"/>
         <MainButton type="submit" text="ENTRAR" />
         <Shortcut  text="Esqueceu a senha?" to="/forgot-password"/>
+        <Shortcut  text="Ainda não tem uma conta?" to="/forgot-password"/>
       </form>
     </Container>
   </div>
@@ -55,6 +56,7 @@ export default Vue.extend({
 .container {
   grid-gap: 1.5rem;
 }
+
 .form {
   display: grid;
   grid-gap: 1rem;
