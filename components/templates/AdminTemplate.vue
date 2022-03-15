@@ -6,13 +6,22 @@
     </HamburgerMenu> -->
 
     <Header class="desktop-header">
-      <Save v-if="changed" @save="save()"/>
-      <Saved v-else />
-      <SecondButton text="Logout" @click="logout()" />
+      <Logo />
+      <div class="actions">
+        <Save v-if="changed" @save="save()"/>
+        <Saved v-else />
+        <SecondButton text="Logout" @click="logout()" />
+      </div>
     </Header>
 
     <div class="main">
-      <Avatar />
+      <Avatar
+        :src="user.avatarUrl || '@/assets/images/avatar.png'" 
+        :name="user.name" 
+        :enable-change="true"
+        @submited="uploadAvatar"
+      />
+      
       <div class="user-info">
         <input  
           v-model="user.name" 
@@ -58,9 +67,10 @@ export default Vue.extend({
       user: {
         name: '',
         username: '',
-        links: [] as Array<Link>
+        links: [] as Array<Link>,
+        avatarUrl: ''
       },
-      changed: false
+      changed: false,
     }
   },
 
@@ -92,6 +102,7 @@ export default Vue.extend({
     })
     if (user)  {
       this.user = user
+      if(!this.user.links) this.user.links = []
     }
   },
 
@@ -131,6 +142,17 @@ export default Vue.extend({
       this.changed = false
     },
 
+    async uploadAvatar(event: any) {
+      const formData = new FormData()
+      formData.append('file', event.target.files[0])
+
+      const headers = { 
+        'Content-Type': 'multipart/form-data', 
+        'Authorization': `bearer ${this.$cookies.get('token') }`
+      }
+      const avatarUrl = await this.$axios.$put('/avatar', formData, { headers })
+      if (avatarUrl) this.user.avatarUrl = avatarUrl
+    }
   }
 })
 
@@ -150,7 +172,10 @@ export default Vue.extend({
 }
 
 .header {
-  justify-content: end;
+  justify-content: space-between;
+  .logo {
+    width: 9.3rem;
+  }
 }
 
 .main {
@@ -172,13 +197,14 @@ export default Vue.extend({
 
 .name {
   background-color: $white;
+  letter-spacing: -1px;
   font-family: Lufga-Semibold;
   font-size: 1.8rem;
   color: $black;
   transition: 0.25s;
-  padding-bottom: 0.1rem;
   border-bottom: solid transparent 1px;
   text-align: center;
+  margin-bottom: 0.25rem;
   &::placeholder {
     color: $darkGray;
     text-align: center;
