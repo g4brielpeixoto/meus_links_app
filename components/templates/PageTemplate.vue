@@ -1,5 +1,5 @@
 <template>
-  <div class="page-template">
+  <div v-if="user.validated" class="page-template">
     <Container class="page-template">
       <Avatar
         :src="user.avatar ? user.avatarUrl : require('@/assets/images/avatar.png')" 
@@ -22,6 +22,7 @@
       <Logo />
     </Footer>
   </div>
+  <NotValidated v-else :username="user.username"/>
 </template>
 
 <script lang="ts" scoped>
@@ -34,7 +35,7 @@ export default Vue.extend({
       user: {
         name: '',
         username: '',
-        validate: true,
+        validated: true,
         avatar: '',
         avatarUrl: '',
         links: [] as Array<Link>
@@ -42,6 +43,12 @@ export default Vue.extend({
     }
   },
 
+  head() {
+    return {
+      title: this.user.username
+    }
+  },
+  
   computed: {
     isEmpty() {
       if(this.user.links.length === 0)
