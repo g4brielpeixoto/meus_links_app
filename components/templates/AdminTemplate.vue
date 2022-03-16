@@ -20,6 +20,7 @@
         :name="user.name" 
         :enable-change="true"
         @submited="uploadAvatar"
+        @delete="deleteAvatar"
       />
       
       <div class="user-info">
@@ -124,7 +125,6 @@ export default Vue.extend({
 
     deleteLink(linkToDelete: Link) {
       this.user.links = this.user.links.filter((link) => link.id !== linkToDelete.id)
-      // this.save()
     },
     
     changeLink(linkToUpdate: Link) {
@@ -132,7 +132,6 @@ export default Vue.extend({
         if(link.id === linkToUpdate.id)
           link = linkToUpdate
       })
-      // this.save()
     },
 
     async save() {     
@@ -143,7 +142,7 @@ export default Vue.extend({
       this.changed = false
     },
 
-    async uploadAvatar(event: any) {
+    uploadAvatar(event: any) {
       const formData = new FormData()
       formData.append('file', event.target.files[0])
 
@@ -151,9 +150,33 @@ export default Vue.extend({
         'Content-Type': 'multipart/form-data', 
         'Authorization': `bearer ${this.$cookies.get('token') }`
       }
-      const avatarUrl = await this.$axios.$put('/avatar', formData, { headers })
-      if (avatarUrl) this.user.avatarUrl = avatarUrl
+
+      this.$axios.$put('/avatar', formData, { headers })
+      .then(({avatar, avatarUrl}) => {
+
+        this.user.avatar = avatar
+        this.user.avatarUrl = avatarUrl
+
+      })       
+      .catch((error) => {
+        this.$notify({
+          type: 'error',
+          title: 'Erro',
+          text: error.response.data.errors[0].message,
+          duration: 5000, 
+        })
+
+      })
+
+    },
+
+    async deleteAvatar() {
+      await this.$axios.$delete('/avatar', { 
+        headers: { 'Authorization': `bearer ${this.$cookies.get('token') }` }
+      })
+      this.user.avatar = ''
     }
+
   }
 })
 
