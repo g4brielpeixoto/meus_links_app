@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="confirm-template">
     <Container>
       <Logo />
       <div class="main-text">
@@ -22,9 +22,11 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.home {
+.confirm-template {
   width: 100%;
+  margin-top: 2rem;
 }
+
 .logo {
   width: 24%;
   margin: 0 auto;
@@ -35,18 +37,10 @@ export default Vue.extend({
     width: 60.15%;
   }
 
-  .subtitle {
-    font-size: 1.25rem;
-  }
-
   .container {
     width: 62.5rem;
   }
   
-  .main-button {
-    font-size: 1.5rem;
-  }
-
   .mobile-header {
     visibility: hidden;
   }

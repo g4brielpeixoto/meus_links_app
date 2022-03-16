@@ -1,5 +1,5 @@
 <template>
-  <div class="login-template">
+  <div class="forgot-password-template">
     <Header>
       <Logo />
     </Header>
@@ -62,6 +62,9 @@ export default Vue.extend({
 
 
 <style lang="scss" scoped>
+.forgot-password-template {
+  margin-top: 4rem;
+}
 
 .logo {
   width: 9.3rem;

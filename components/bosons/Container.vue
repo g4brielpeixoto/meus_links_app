@@ -7,7 +7,7 @@
 <style lang="scss" scoped>
 .container {
   display: grid;
-  padding-top: 2rem;
+  padding-top: 2srem;
   margin: 4rem auto;
   justify-items: center;
 }

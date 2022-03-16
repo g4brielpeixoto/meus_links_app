@@ -1,5 +1,5 @@
 <template>
-  <div class="login-template">
+  <div class="forgot-password-success">
     <Header>
       <Logo />
     </Header>
@@ -24,6 +24,9 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.forgot-password-success {
+  margin-top: 6rem;
+}
 .title {
   font-size: 2.8rem;
 }

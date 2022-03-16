@@ -1,5 +1,5 @@
 <template>
-  <div class="login-template">
+  <div class="register-template">
     <Header>
       <Logo />
     </Header>
@@ -57,6 +57,9 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.register-template {
+  margin-top: 4rem;
+}
 .logo {
   width: 9.3rem;
 }

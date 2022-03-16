@@ -1,7 +1,11 @@
 <template>
   <div class="page-template">
     <Container class="page-template">
-      <Avatar />
+      <Avatar
+        :src="user.avatar ? user.avatarUrl : require('@/assets/images/avatar.png')" 
+        :name="user.name" 
+        :enable-change="false"
+      />
       <Title v-if="user.name" :text="user.name"/>
       <SubTitle :text="`@${user.username}`"/>
       <EmptyList v-if="isEmpty"/>
@@ -31,6 +35,8 @@ export default Vue.extend({
         name: '',
         username: '',
         validate: true,
+        avatar: '',
+        avatarUrl: '',
         links: [] as Array<Link>
       }
     }
@@ -70,7 +76,6 @@ export default Vue.extend({
 .title {
   font-size: 1.8rem;
 }
-
 
 .links {
   margin-top: 1.5rem;

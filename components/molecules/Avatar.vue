@@ -1,5 +1,5 @@
 <template>
-  <div class="box" @mouseenter="show = true" @mouseleave="show = false">
+  <div class="avatar" @mouseenter="show = true" @mouseleave="show = false">
     <transition>
       <div v-if="enableChange && show" class="change-avatar" >
         <div>
@@ -9,7 +9,7 @@
         <p class="actions delete-avatar" @click="$emit('delete')">Deletar foto</p>
       </div>
     </transition>
-    <img :src="src" :alt="name" class="avatar">
+    <img :src="src" :alt="name" class="image">
   </div>
 </template>
 
@@ -43,38 +43,43 @@ export default Vue.extend({
 .avatar {
   width: 8rem;
   border-radius: 5rem;
-}
 
-.change-avatar {
-  background: rgba(255, 94, 111, 0.85);
-  position: absolute;
-  width: 8rem;
-  height: 8rem;
-  border-radius: 5rem;
-  color: $white;
-  display: grid;
-  justify-items: center;
-  align-items: center;
-  align-content: center;
-  grid-gap: 0.7rem;
-  input {
-    display: none;
+  .image {
+    width: 8rem;
+    border-radius: 5rem;
   }
-  .actions {
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-    } 
+
+  .change-avatar {
+    background: rgba(255, 94, 111, 0.85);
+    position: absolute;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 5rem;
+    color: $white;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    grid-gap: 0.7rem;
+    input {
+      display: none;
+    }
+    .actions {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      } 
+    }
   }
-}
 
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.5s ease;
-}
+  .v-enter-active,
+  .v-leave-active {
+    transition: opacity 0.5s ease;
+  }
 
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
+  .v-enter-from,
+  .v-leave-to {
+    opacity: 0;
+  }
 }
 </style>

@@ -16,7 +16,7 @@
 
     <div class="main">
       <Avatar
-        :src="user.avatarUrl || '@/assets/images/avatar.png'" 
+        :src="user.avatar ? user.avatarUrl : require('@/assets/images/avatar.png')" 
         :name="user.name" 
         :enable-change="true"
         @submited="uploadAvatar"
@@ -68,6 +68,7 @@ export default Vue.extend({
         name: '',
         username: '',
         links: [] as Array<Link>,
+        avatar: '',
         avatarUrl: ''
       },
       changed: false,
@@ -180,12 +181,12 @@ export default Vue.extend({
 
 .main {
   display: grid;
-  margin: 1rem auto;
+  margin: 2rem auto;
   justify-items: center;
   grid-gap: 1.25rem;
   
   .empty-list {
-    margin-top: 5rem;
+    margin-top: 1.5rem;
   }
 
 }

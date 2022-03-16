@@ -36,6 +36,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .home {
   width: 100%;
+  margin-top: 4rem;
 }
 .logo {
   width: 24%;

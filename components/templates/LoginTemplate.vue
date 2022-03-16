@@ -10,7 +10,7 @@
         <PasswordInput @changePassword="changePassword"/>
         <MainButton type="submit" text="ENTRAR" />
         <Shortcut  text="Esqueceu a senha?" to="/forgot-password"/>
-        <Shortcut  text="Ainda não tem uma conta?" to="/forgot-password"/>
+        <Shortcut  text="Ainda não tem uma conta?" to="/register"/>
       </form>
     </Container>
   </div>
@@ -50,6 +50,9 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.login-template {
+  margin-top: 4rem
+}
 .logo {
   width: 9.3rem;
 }

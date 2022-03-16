@@ -1,5 +1,5 @@
 <template>
-  <div class="login-template">
+  <div class="redefine-password-template">
     <Header>
       <Logo />
     </Header>
@@ -55,6 +55,9 @@ export default Vue.extend({
 
 
 <style lang="scss" scoped>
+.redefine-password-template {
+  margin-top: 4rem;
+}
 
 .logo {
   width: 9.3rem;
