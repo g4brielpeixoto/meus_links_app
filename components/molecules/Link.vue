@@ -26,7 +26,7 @@ export default Vue.extend({
   border-radius: 3rem;
   text-align: center;
   background-color: $pink;
-  width: 25rem;
+  width: 28rem;
   cursor: pointer;
   transition: 0.25s;
 
@@ -34,4 +34,11 @@ export default Vue.extend({
     background-color: $green
   }
 }
+
+@include screen('small') {
+  .link {
+    width: 85vw;
+  }
+}
+
 </style>

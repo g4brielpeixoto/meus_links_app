@@ -6,10 +6,10 @@
           <label for="avatar" class="actions update-avatar">Trocar foto</label>
           <input id="avatar" ref="file" type="file" @input="$emit('submited', $event)">
         </div>
-        <p class="actions delete-avatar" @click="$emit('delete')">Deletar foto</p>
+        <p v-show="user.avatar" class="actions delete-avatar" @click="$emit('delete')">Deletar foto</p>
       </div>
     </transition>
-    <img :src="src" :alt="name" class="image">
+    <img :src="user.avatar ? user.avatarUrl : require('@/assets/images/avatar.png')" :alt="user.name" class="image">
   </div>
 </template>
 
@@ -18,13 +18,9 @@ import Vue from 'vue'
 
 export default Vue.extend({
   props: {
-    src: {
-      type: String,
+    user: {
+      type: Object,
       required: true
-    },
-    name: {
-      type: String,
-      default: 'Foto de perfil'
     },
     enableChange: {
       type: Boolean,

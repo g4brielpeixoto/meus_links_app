@@ -17,7 +17,13 @@ export default {
 
   plugins: ['@/plugins/accessor', '@/plugins/notifications.client'],
 
-  components: [{ path: '@/components', pathPrefix: false }],
+  components: [
+    '@/components/atoms',
+    '@/components/bosons',
+    '@/components/molecules',
+    '@/components/organisms',
+    '@/components/templates',
+  ],
 
   buildModules: ['@nuxt/typescript-build'],
 

@@ -1,11 +1,12 @@
 <template>
   <div class="admin-template">
-    <!-- <HamburgerMenu class="mobile-header">
-      <NuxtLink to="/login">Ver Links</NuxtLink>
-      <NuxtLink to="/register">Logout</NuxtLink>
-    </HamburgerMenu> -->
+    <HamburgerMenu class="mobile-header">
+      <a v-if="changed" @click="save()">Salvar</a>
+      <a v-else>Salvo</a>
+      <a @click="logout()">Logout</a>
+    </HamburgerMenu>
 
-    <Header class="desktop-header">
+    <Header>
       <Logo />
       <div class="actions">
         <Save v-if="changed" @save="save()"/>
@@ -16,8 +17,7 @@
 
     <div class="main">
       <Avatar
-        :src="user.avatar ? user.avatarUrl : require('@/assets/images/avatar.png')" 
-        :name="user.name" 
+        :user="user"
         :enable-change="true"
         @submited="uploadAvatar"
         @delete="deleteAvatar"
@@ -33,6 +33,7 @@
         />
         <SubTitle :text="`@${user.username}`"/>
       </div>
+      
       <AddLink text="+ Adicionar novo link" @click="addLink"/>
       <EmptyList v-show="isEmpty"/>
       <Draggable :list="user.links">
@@ -46,12 +47,13 @@
           />
         </transition-group>
       </Draggable>
-    </div> 
 
+    </div> 
   </div>
 </template>
 
-<script lang="ts" scoped>
+<script lang="ts">
+
 import Vue from 'vue'
 import Draggable from 'vuedraggable'
 import { Link } from '@/Models'
@@ -182,7 +184,13 @@ export default Vue.extend({
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.mobile-header {
+  a {
+    cursor: pointer;
+  }
+}
+
 .flip-list-move {
   transition: transform 0.3s;
 }
@@ -199,12 +207,13 @@ export default Vue.extend({
   justify-content: space-between;
   .logo {
     width: 9.3rem;
+    margin: auto auto;
   }
 }
 
 .main {
   display: grid;
-  margin: 2rem auto;
+  margin: 0 auto;
   justify-items: center;
   grid-gap: 1.25rem;
   
@@ -238,16 +247,12 @@ export default Vue.extend({
   }
 }
 
-@include screen('large', 'infinity') {
-
-}
-
-@include screen('medium') {
-  
-}
-
 @include screen('small') {
-  
+  .header {
+    .actions {
+      visibility: hidden;
+    }
+  }
 }
 
 </style>

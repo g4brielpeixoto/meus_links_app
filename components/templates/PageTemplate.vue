@@ -2,8 +2,7 @@
   <div v-if="user.validated" class="page-template">
     <Container class="page-template">
       <Avatar
-        :src="user.avatar ? user.avatarUrl : require('@/assets/images/avatar.png')" 
-        :name="user.name" 
+        :user="user"
         :enable-change="false"
       />
       <Title v-if="user.name" :text="user.name"/>

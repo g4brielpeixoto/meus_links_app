@@ -27,7 +27,7 @@ export default Vue.extend({
 .username-input {
   border-radius: 30px;
   background-color: $lightGray;
-  width: 25rem;
+  width: 28rem;
   padding: 0.75rem 1.7rem;
   transition: 0.5;
   display: grid;
@@ -37,6 +37,7 @@ export default Vue.extend({
   grid-gap: 4px;
   .input {
     background-color: $lightGray;
+    width: 100%;
   }
   .input::placeholder {
     color: $darkGray;
@@ -44,8 +45,14 @@ export default Vue.extend({
   .logotipo {
     width: 17px;
   }
+  &-input:focus-within {
+    border: solid 2px $black;
+  }
 }
-.username-input:focus-within {
-  border: solid 2px $black;
+
+@include screen('small') {
+  .username-input {
+    width: 85vw;
+  }
 }
 </style>

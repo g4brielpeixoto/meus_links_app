@@ -36,12 +36,13 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .home {
   width: 100%;
-  margin-top: 4rem;
 }
 .logo {
   width: 24%;
   margin: 0 auto;
 }
+
+
 @include screen('large', 'infinity') {
   .title {
     font-size: 3rem;
@@ -58,10 +59,6 @@ export default Vue.extend({
   
   .main-button {
     font-size: 1.5rem;
-  }
-
-  .mobile-header {
-    visibility: hidden;
   }
 }
 
@@ -82,9 +79,7 @@ export default Vue.extend({
   .main-button {
     font-size: 1rem;
   }
-  .mobile-header {
-    visibility: hidden;
-  }
+
 }
 
 @include screen('small') {
@@ -112,10 +107,6 @@ export default Vue.extend({
 
   .desktop-header {
     visibility: hidden;
-  }
-
-  .mobile-header {
-    visibility: visible;
   }
 }
 

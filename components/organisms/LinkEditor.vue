@@ -65,6 +65,7 @@ export default Vue.extend({
   grid-template-columns: 1.9rem auto 2rem;
   align-items: center;
   background-color: $lightGray;
+  width: 28rem;
 
   .handle {
     width: 22px;
@@ -73,13 +74,12 @@ export default Vue.extend({
 
   .inputs {
     display: grid;
-    justify-items: center;
     grid-gap: 0.5rem;
-    width: 20rem;
-    margin-right: 0.5rem;
+    width: 100%;
     .input {
+      margin-right: 1rem;
       background-color: $lightGray;
-      width: 20rem; 
+      width: 96%; 
       font-size: 14px;
       color: #4e4e4e;
       transition: 0.25s;
@@ -115,6 +115,12 @@ export default Vue.extend({
         fill: red;
       }
     }
+  }
+}
+
+@include screen('small') {
+  .link-editor {
+    width: 85vw;
   }
 }
 </style>

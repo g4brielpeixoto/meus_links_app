@@ -51,18 +51,19 @@ export default Vue.extend({
       opened: false
     }
   },
-  mounted() {
-    // eslint-disable-next-line nuxt/no-globals-in-created
-    window.addEventListener('resize', this.checkScreenSize())
+
+  mounted () {
+    this.onResize()
+    window.addEventListener('resize', this.onResize)
   },
   methods: {
-    toggleMenu() {
+    onResize() {
+      if(window.innerWidth < 600) this.mobile = true
+      else this.mobile = false
+    },
+    toggleMenu() { 
       this.opened = !this.opened
     },
-    checkScreenSize(): any {
-      if (window.innerWidth <= 800) this.mobile = true
-      else this.mobile = false
-    }
   }
 })
 </script>
@@ -76,6 +77,7 @@ export default Vue.extend({
   cursor: pointer;
   transition: 0.3s;
 }
+
 .menu:hover {
   fill: $pink;
 }
@@ -84,12 +86,14 @@ export default Vue.extend({
   width: 28px;
   cursor: pointer;
 }
+
 .hamburger-menu {
   background-color: $green;
   font-size: 24px;
   height: 100%;
   width: 250px;
   position: fixed;
+  z-index: 999;
   right: 0;
   box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.3);
   nav {

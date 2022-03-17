@@ -45,7 +45,7 @@ export default Vue.extend({
 .input {
   border-radius: 30px;
   background-color: $lightGray;
-  width: 25rem;
+  width: 28rem;
   padding: 0.75rem 1.7rem;
   transition: 0.5;
   display: grid;
@@ -54,12 +54,13 @@ export default Vue.extend({
   justify-content: start;
   grid-gap: 4px;
   background-color: $lightGray;
-}
-.input::placeholder {
-    color: $darkGray;
+
+  &::placeholder {
+      color: $darkGray;
   }
-.input:focus {
-  border: solid 2px $black;
+  &:focus {
+    border: solid 2px $black;
+  }
 }
 
 .icon {
@@ -68,4 +69,12 @@ export default Vue.extend({
   cursor: pointer;
   width: 20px;
 }
+
+@include screen('small') {
+  .input {
+    width: 85vw;
+  }
+}
+
+
 </style>

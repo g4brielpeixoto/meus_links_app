@@ -57,9 +57,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.register-template {
-  margin-top: 4rem;
-}
 .logo {
   width: 9.3rem;
 }

@@ -30,9 +30,9 @@ export default Vue.extend({
   font-family: Lufga-ExtraBold;
   letter-spacing: 0.1rem;
   cursor: pointer;
-  width: fit-content;
+  width: 28rem;
   height: fit-content;
-  padding: 0.7rem 7rem;
+  padding: 0.7rem 0;
   border-radius: 40px;
   border: solid $pink 2px;
   background-color: $pink;
@@ -43,4 +43,10 @@ export default Vue.extend({
   border: solid $green 2px;
   background-color: $green;
 }
+
+@include screen('small') {
+    .add-link {
+      width: 85vw;
+    }
+  }
 </style>
