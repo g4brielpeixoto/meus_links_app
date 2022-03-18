@@ -16,7 +16,7 @@
         name="Link" 
         type="text" 
         placeholder="Link" 
-        @blur="$emit('changed', link)"
+        @blur="validateLink"
       />
     </div>
     <div class="actions">
@@ -52,7 +52,17 @@ export default Vue.extend({
     toggleState() {
       this.link.active = !this.link.active
       this.$emit('changed', this.link)
-    }
+    },
+    validateLink() {
+      if(this.link.url) {
+        const startOfUrl = this.link.url.substring(0, 8)
+        if (startOfUrl.search(/^http[s]?:\/\//)) {
+          this.link.url = 'https://' + this.link.url
+        }
+  
+        this.$emit('changed', this.link)
+      }
+    },
   }
 })
 </script>

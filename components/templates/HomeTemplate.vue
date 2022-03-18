@@ -37,9 +37,9 @@ export default Vue.extend({
 .home {
   width: 100%;
 }
+
 .logo {
-  width: 24%;
-  margin: 0 auto;
+  width: 16rem;
 }
 
 
@@ -72,6 +72,10 @@ export default Vue.extend({
     width: 37.5rem;
   }
 
+  .logo {
+    width: 12rem;
+  }
+
   .subtitle {
     font-size: 0.92rem;
   }
@@ -84,21 +88,22 @@ export default Vue.extend({
 
 @include screen('small') {
   .title {
-    font-size: 1.7rem;
-    width: 90%;
+    padding: 0 1rem;
+    font-size: 1.8rem;
+    width: 19rem;
+    text-align: left;
   }
   .container {
     margin: 6rem auto;
-    width: 400px;
+    width: 19rem;
   }
 
   .logo {
-    width: 40%;
-    margin: 0 auto;
+    width: 10rem;
   }
 
   .subtitle {
-    font-size: 0.7rem;
+    display: none;
   }
 
   .main-button {

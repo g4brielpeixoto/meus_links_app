@@ -17,7 +17,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  layout: 'default  '
+  layout: 'default'
 })
 </script>
 
@@ -29,11 +29,18 @@ export default Vue.extend({
 
   .title {
     margin-bottom: 2rem;
+    padding: 0 2rem;
   }
 
   .image {
     width: 18rem;
     margin-bottom: 2rem;
   }
+
+  @include screen('small') {
+    .image {
+      width: 15rem;
+    }
+  } 
 }
 </style>

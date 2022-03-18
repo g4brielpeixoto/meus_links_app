@@ -73,4 +73,13 @@ export default Vue.extend({
 .main-button {
   margin: 1rem auto;
 }
+
+@include screen('small') {
+  .title {
+    padding: 0 3rem;
+  }
+  .logo {
+    width: 8rem;
+  }
+}
 </style>

@@ -99,4 +99,12 @@ export default Vue.extend({
     width: 9.3rem;
   }
 }
+
+@include screen('small') {
+  .footer{
+    .logo {
+      width: 8rem;
+    }
+  }
+}
 </style>

@@ -1,8 +1,9 @@
 <template>
   <div class="admin-template">
-    <HamburgerMenu class="mobile-header">
-      <a v-if="changed" @click="save()">Salvar</a>
+    <HamburgerMenu class="mobile-header" :changed="changed">
+      <a v-if="changed" :class="{'changed': changed}" @click="save()">Salvar</a>
       <a v-else>Salvo</a>
+      <NuxtLink :to="`/${user.username}`">Ver página</NuxtLink>
       <a @click="logout()">Logout</a>
     </HamburgerMenu>
 
@@ -11,6 +12,9 @@
       <div class="actions">
         <Save v-if="changed" @save="save()"/>
         <Saved v-else />
+        <NuxtLink :to="`/${user.username}`">
+          <SecondButton text="Ver Página"/>
+        </NuxtLink>
         <SecondButton text="Logout" @click="logout()" />
       </div>
     </Header>
@@ -36,7 +40,7 @@
       
       <AddLink text="+ Adicionar novo link" @click="addLink"/>
       <EmptyList v-show="isEmpty"/>
-      <Draggable :list="user.links">
+      <Draggable :list="user.links" handle=".handle">
         <transition-group class="list" name="flip-list">
           <LinkEditor  
             v-for="link in user.links"
@@ -184,11 +188,24 @@ export default Vue.extend({
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .mobile-header {
   a {
     cursor: pointer;
   }
+}
+
+@keyframes changed {
+  0% { color: $pink; }
+  100% { color: $white; }
+}
+  
+.changed {
+  -webkit-animation: changed 1s linear infinite;
+  -moz-animation: changed 1s linear infinite;
+  -ms-animation: changed 1s linear infinite;
+  -o-animation: changed 1s linear infinite;
+  animation: changed 1s linear infinite;
 }
 
 .flip-list-move {
@@ -248,10 +265,26 @@ export default Vue.extend({
 }
 
 @include screen('small') {
+  .main {
+    padding-top: 7rem;
+  }
+  
   .header {
+    height: 4rem;  
+    position: fixed;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.2);
+    z-index: 900;
+    background-color: $white;
+    .logo {
+      width: 8rem;
+    }
     .actions {
       visibility: hidden;
     }
+  }
+
+  .mobile-header {
+    z-index: 999;
   }
 }
 

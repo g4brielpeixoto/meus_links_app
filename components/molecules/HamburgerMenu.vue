@@ -1,35 +1,14 @@
 <template>
   <header class="header">
-    <svg
-      v-show="mobile"
-      class="menu"
-      xmlns="http://www.w3.org/2000/svg"
-      xml:space="preserve"
-      version="1.1"
-      style="
-        shape-rendering: geometricPrecision;
-        text-rendering: geometricPrecision;
-        image-rendering: optimizeQuality;
-        fill-rule: evenodd;
-        clip-rule: evenodd;
-      "
-      viewBox="0 0 18062.22 18062.22"
-      @click="toggleMenu"
-    >
-      <defs>
-        <style type="text/css">
-          .menu {
-            fill: #00a190;
-          }
-        </style>
-      </defs>
-      <g id="Layer_x0020_1">
-        <path
-          class="menu"
-          d="M2203.74 0l13654.74 0c1212.06,0 2203.74,991.68 2203.74,2203.74l0 13654.74c0,1212.06 -991.68,2203.74 -2203.74,2203.74l-13654.74 0c-1212.06,0 -2203.74,-991.68 -2203.74,-2203.74l0 -13654.74c0,-1212.06 991.68,-2203.74 2203.74,-2203.74zm1253.49 12064.99l11147.76 0c659.7,0 1199.45,539.75 1199.45,1199.45l0 0c0,659.7 -539.75,1199.45 -1199.45,1199.45l-11147.76 0c-659.7,0 -1199.45,-539.75 -1199.45,-1199.45l0 0c0,-659.7 539.75,-1199.45 1199.45,-1199.45zm0 -8466.66l11147.76 0c659.7,0 1199.45,539.75 1199.45,1199.45l0 0c0,659.7 -539.75,1199.45 -1199.45,1199.45l-11147.76 0c-659.7,0 -1199.45,-539.75 -1199.45,-1199.45l0 0c0,-659.7 539.75,-1199.45 1199.45,-1199.45zm0 4233.33l11147.76 0c659.7,0 1199.45,539.75 1199.45,1199.45l0 0c0,659.7 -539.75,1199.45 -1199.45,1199.45l-11147.76 0c-659.7,0 -1199.45,-539.75 -1199.45,-1199.45l0 0c0,-659.7 539.75,-1199.45 1199.45,-1199.45z"
-        />
-      </g>
-    </svg>
+    <svg 
+     v-show="mobile"
+     :class="['menu', {'changed': changed}]"
+     fill="#00a190"
+     viewBox="0 0 24 24"
+     @click="toggleMenu">
+     <path d="M 3 5 A 1.0001 1.0001 0 1 0 3 7 L 21 7 A 1.0001 1.0001 0 1 0 21 5 L 3 5 z M 3 11 A 1.0001 1.0001 0 1 0 3 13 L 21 13 A 1.0001 1.0001 0 1 0 21 11 L 3 11 z M 3 17 A 1.0001 1.0001 0 1 0 3 19 L 21 19 A 1.0001 1.0001 0 1 0 21 17 L 3 17 z"/>
+     </svg>
+
     <transition>
       <div v-show="opened" class="hamburger-menu">
         <nav>
@@ -45,6 +24,13 @@
 import Vue from 'vue'
 
 export default Vue.extend({
+  props: {
+    changed: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   data() {
     return {
       mobile: false,
@@ -70,12 +56,27 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .menu {
-  width: 28px;
+  width: 33px;
   position: fixed;
   right: 1.5rem;
-  top: 1.5rem;
+  top: 0.9rem;
   cursor: pointer;
   transition: 0.3s;
+  z-index: 999;
+}
+
+
+@keyframes changed {
+  0% { fill: $pink; }
+  100% { fill: $green; }
+}
+  
+.changed {
+  -webkit-animation: changed 1s linear infinite;
+  -moz-animation: changed 1s linear infinite;
+  -ms-animation: changed 1s linear infinite;
+  -o-animation: changed 1s linear infinite;
+  animation: changed 1s linear infinite;
 }
 
 .menu:hover {
