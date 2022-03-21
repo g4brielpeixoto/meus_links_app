@@ -1,6 +1,6 @@
 import { ActionTree } from 'vuex'
 import { $cookies } from '@/utils/nuxt-instance'
-import { User } from '~/models'
+import { User } from '@/Models'
 
 export interface RegisterPayload {
   username: String,

@@ -34,7 +34,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Link } from '@/models'
+import { Link } from '@/Models'
 
 export default Vue.extend({
   props: {
