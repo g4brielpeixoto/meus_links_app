@@ -42,7 +42,7 @@ export default Vue.extend({
         username: this.username,
         email: this.email,
         password: this.password,
-        redirectUrl: 'http://localhost:3000/confirm',
+        redirectUrl: 'https://meus-links-app.vercel.app/confirm',
       }
 
       await this.$store.dispatch('register', user)
