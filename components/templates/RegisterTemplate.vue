@@ -46,11 +46,22 @@ export default Vue.extend({
       }
 
       await this.$store.dispatch('register', user)
-      this.$notify({
-        type: 'success',
-        text: 'Bem-vindo ao Meus Links! Verifique seu email para ativar sua conta!',
-        duration: 10000
+      .then(() => {
+        this.$router.push('/admin')
+        this.$notify({
+          type: 'success',
+          text: 'Bem-vindo ao Meus Links! Verifique seu email para ativar sua conta!',
+          duration: 10000
+        })
       })
+      .catch((error) => {
+        this.$notify({
+          type: 'error',
+          text: error.response.data.errors[0].message,
+          duration: 5000, 
+        })
+      })
+        
     }
   },
 })
