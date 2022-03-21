@@ -44,7 +44,7 @@ export default Vue.extend({
 
   head() {
     return {
-      title: this.user.username
+      title: (this as any).user.username
     }
   },
   
