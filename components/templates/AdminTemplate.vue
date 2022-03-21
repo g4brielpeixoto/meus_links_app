@@ -167,11 +167,9 @@ export default Vue.extend({
       .catch((error) => {
         this.$notify({
           type: 'error',
-          title: 'Erro',
           text: error.response.data.errors[0].message,
           duration: 5000, 
         })
-
       })
 
     },
