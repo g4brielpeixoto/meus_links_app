@@ -26,7 +26,7 @@
 
 <script lang="ts" scoped>
 import Vue from 'vue'
-import { Link } from '@/Models'
+import { Link } from '@/models'
 
 export default Vue.extend({
   data() {

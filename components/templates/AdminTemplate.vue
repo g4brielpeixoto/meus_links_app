@@ -60,7 +60,7 @@
 
 import Vue from 'vue'
 import Draggable from 'vuedraggable'
-import { Link } from '@/Models'
+import { Link } from '@/models'
 import { $cookies } from '@/utils/nuxt-instance'
 
 export default Vue.extend({
