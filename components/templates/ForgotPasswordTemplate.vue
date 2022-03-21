@@ -32,7 +32,7 @@ export default Vue.extend({
 
       const user = {
         email: this.email,
-        redirectUrl: 'https://meus-links-app.vercel.app/confirm',
+        redirectUrl: 'https://meus-links-app.vercel.app/redefine-password',
       }
 
       try {
