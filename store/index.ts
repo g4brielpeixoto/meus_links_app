@@ -32,7 +32,6 @@ export const actions: ActionTree<RootState, RootState> = {
         username: payload.username, 
         password: payload.password
       })
-      this.$router.push('/admin')
     }
   },
 
