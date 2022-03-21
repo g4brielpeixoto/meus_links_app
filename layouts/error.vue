@@ -23,6 +23,10 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .error-page {
+  .container {
+    margin: 1rem;
+  }
+
   .logo {
     width: 9.3rem;
   }
