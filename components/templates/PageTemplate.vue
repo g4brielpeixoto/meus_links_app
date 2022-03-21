@@ -24,7 +24,7 @@
   <NotValidated v-else :username="user.username"/>
 </template>
 
-<script lang="ts" scoped>
+<script lang="ts">
 import Vue from 'vue'
 import { Link } from '@/models'
 
