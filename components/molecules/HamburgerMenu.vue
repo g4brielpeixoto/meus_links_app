@@ -12,7 +12,7 @@
     <transition>
       <div v-show="opened" class="hamburger-menu">
         <nav>
-          <img src="@/assets/images/back.svg" class="back" @click="toggleMenu" />
+          <img src="../../assets/images/back.svg" class="back" @click="toggleMenu" />
           <slot class="slot" />
         </nav>
       </div>

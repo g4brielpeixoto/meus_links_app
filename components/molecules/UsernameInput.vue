@@ -1,6 +1,6 @@
 <template>
   <div class="username-input">
-    <img src="@/assets/images/logotipo.svg" class="logotipo" />
+    <img src="../../assets/images/logotipo.svg" class="logotipo" />
     <p>meuslinks.io/</p>
     <input v-model="username" class="input" type="text" name="username" placeholder="apelido" />
   </div>

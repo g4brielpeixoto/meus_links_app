@@ -1,6 +1,6 @@
 <template>
   <div class="link-editor">
-    <img class="handle" src="@/assets/images/three-dots-vertical.svg">
+    <img class="handle" src="../../assets/images/three-dots-vertical.svg">
     <div class="inputs">
       <input  
         v-model="link.title" 

@@ -1,8 +1,8 @@
 <template>
   <div class="password-input">
     <input v-model="password" class="input" :type="inputType" name="Senha" placeholder="Senha" >
-    <img v-if="showPassword" class="icon" src="@/assets/images/eye.svg" @click="toggleShowPassword"/>
-    <img v-else class="icon" src="@/assets/images/cutEye.svg" @click="toggleShowPassword"/>
+    <img v-if="showPassword" class="icon" src="../../assets/images/eye.svg" @click="toggleShowPassword"/>
+    <img v-else class="icon" src="../../assets/images/cutEye.svg" @click="toggleShowPassword"/>
   </div>
 </template>
 

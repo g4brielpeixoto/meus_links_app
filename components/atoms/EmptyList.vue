@@ -1,6 +1,6 @@
 <template>
   <div class="empty-list">
-    <img class="icon" src="@/assets/images/empty.svg">
+    <img class="icon" src="../../assets/images/empty.svg">
     <p class="text" >Nenhum link adicionado ainda.</p>
   </div>
 </template>
