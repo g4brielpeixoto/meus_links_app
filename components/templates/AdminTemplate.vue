@@ -9,13 +9,17 @@
 
     <Header>
       <Logo />
+
       <div class="actions">
-        <Save v-if="changed" @save="save()"/>
+
+        <Save v-if="changed" :loading="isSaving" @save="save()"/>
         <Saved v-else />
+
         <NuxtLink :to="`/${user.username}`">
           <SecondButton text="Ver Página"/>
         </NuxtLink>
-        <SecondButton text="Logout" @click="logout()" />
+
+        <SecondButton text="Logout" :loading="isLogouting" @click="logout()"/>
       </div>
     </Header>
 
@@ -79,6 +83,18 @@ export default Vue.extend({
         avatarUrl: ''
       },
       changed: false,
+      isSaving: false,
+      isLogouting: false
+    }
+  },
+  
+  async fetch() {
+    const user = await this.$axios.$get('/register', {
+      headers: {'Authorization': `bearer ${$cookies.get('token')}`}
+    })
+    if (user)  {
+      this.user = user
+      if(!this.user.links) this.user.links = []
     }
   },
 
@@ -103,20 +119,12 @@ export default Vue.extend({
       deep: true
     }
   },
-  
-  async mounted() {
-    const user = await this.$axios.$get('/register', {
-      headers: {'Authorization': `bearer ${$cookies.get('token')}`}
-    })
-    if (user)  {
-      this.user = user
-      if(!this.user.links) this.user.links = []
-    }
-  },
 
   methods: {
     async logout() {
+      this.isLogouting = true
       await this.$store.dispatch('auth/logout')
+      this.isLogouting = false
       this.$router.push('/login')
     },
 
@@ -142,10 +150,12 @@ export default Vue.extend({
 
     async save() {     
       const { name, links } = this.user
+      this.isSaving = true
       await this.$axios.$put('/register', { name, links }, {
         headers: {'Authorization': `bearer ${$cookies.get('token')}`}
       })
       this.changed = false
+      this.isSaving = false
     },
 
     uploadAvatar(event: any) {
