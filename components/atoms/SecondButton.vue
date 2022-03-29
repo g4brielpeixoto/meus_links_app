@@ -1,6 +1,14 @@
 <template>
-  <button class="button" @click="$emit('click')">
-    {{ text }}
+  <button 
+    :disabled="loading"
+    :class="[{ 'loading': loading }, 'second-button']"
+    @click="$emit('click')">
+
+    <ButtonLoading v-show="loading" />
+    
+    <div class="text">
+      {{ text }}
+    </div>
   </button>
 </template>
 
@@ -13,12 +21,17 @@ export default Vue.extend({
       type: String,
       required: true
     },
+    loading: {
+      type: Boolean,
+      default: false
+    }
   }
 })
 </script>
 
 <style scoped lang="scss">
-.button {
+
+.second-button {
   cursor: pointer;
   width: fit-content;
   height: fit-content;
@@ -28,9 +41,22 @@ export default Vue.extend({
   background-color: $green;
   color: $white;
   transition: 0.25s;
-}
-.button:hover {
+  
+  &:hover {
   background-color: $pink;
   border: solid $pink 2px;
+  }
+
+}
+.loading {
+  .text {
+    opacity: 0;
+  }
+  cursor: progress;
+  &:hover {
+    border: solid $green 2px;
+    background-color: $green;
+  }
+
 }
 </style>
