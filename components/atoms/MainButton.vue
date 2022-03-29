@@ -1,6 +1,13 @@
 <template>
-  <button :type="type" class="main-button">
-    {{ text }}
+  <button 
+    :disabled="loading"
+    :class="[{ 'loading': loading }, 'save']"
+    :type="type" class="main-button"
+  >
+    <ButtonLoading v-show="loading"/>
+    <div class="text">
+      {{ text }}
+    </div>
   </button>
 </template>
 
@@ -16,6 +23,10 @@ export default Vue.extend({
     type: {
       type: String,
       default: 'button'
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   }
 })
@@ -38,5 +49,12 @@ export default Vue.extend({
 .main-button:hover {
   border: solid $green 2px;
   background-color: $green;
+}
+
+.loading {
+  cursor: progress;
+  .text {
+    opacity: 0;
+  }
 }
 </style>

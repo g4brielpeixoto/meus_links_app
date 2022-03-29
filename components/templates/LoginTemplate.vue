@@ -8,7 +8,7 @@
       <form class="form" @submit.prevent="login()">
         <UsernameInput @changeUsername="changeUsername"/>
         <PasswordInput @changePassword="changePassword"/>
-        <MainButton type="submit" text="ENTRAR" />
+        <MainButton type="submit" text="ENTRAR" :loading="isLogging"/>
         <Shortcut  text="Esqueceu a senha?" to="/forgot-password"/>
         <Shortcut  text="Ainda não tem uma conta?" to="/register"/>
       </form>
@@ -24,10 +24,12 @@ export default Vue.extend({
     return {
       username: '',
       password: '',
+      isLogging: false
     }
   },
   methods: {
     async login() {
+      this.isLogging = true
       try {
         await this.$store.dispatch('auth/login', { username: this.username, password: this.password })      
         this.$router.push('/admin')
@@ -38,6 +40,7 @@ export default Vue.extend({
           duration: 5000
         })
       }
+      this.isLogging = false
     },
     changeUsername(username: string) {
       this.username = username
