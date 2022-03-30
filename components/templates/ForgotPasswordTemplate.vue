@@ -7,7 +7,7 @@
       <Title text="Qual o seu e-mail cadastrado?" />
       <form class="form" @submit.prevent="forgotPassword()">
         <BaseInput  name="email" type="email" placeholder="E-mail" @changeValue="changeEmail" />
-        <MainButton type="submit" text="RECUPERAR SENHA" />
+        <MainButton type="submit" text="RECUPERAR SENHA" :loading="loading" />
       </form>
     </Container>
   </div>
@@ -15,11 +15,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import baseUrl from '@/utils/baseUrl'
 
 export default Vue.extend({
   data() {
     return {
-      email: ''
+      email: '',
+      loading: false
     }
   },
   methods: {
@@ -32,11 +34,11 @@ export default Vue.extend({
 
       const user = {
         email: this.email,
-        redirectUrl: 'https://meus-links-app.vercel.app/redefine-password',
+        redirectUrl: `${baseUrl}/redefine-password`,
       }
 
       try {
-        
+        this.loading = true
         await this.$axios.$post('/forgot-password', user, {
           headers: {
             'Authorization': `bearer ${this.$cookies.get('token')}`
@@ -52,8 +54,8 @@ export default Vue.extend({
           text: 'E-mail não cadastrado',
           duration: 5000
         })
-
       }
+      this.loading = false
     }
   },
 })
