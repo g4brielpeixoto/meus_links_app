@@ -17,6 +17,7 @@ export default Vue.extend({
   },
   watch: {
     username() {
+      this.username = this.username.toLowerCase()
       this.$emit('changeUsername', this.username)
     }
   }
