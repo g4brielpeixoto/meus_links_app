@@ -6,14 +6,14 @@
 
     <div id="clickbox">
       <svg 
-      v-show="mobile"
-      :class="['menu', {'changed': changed}]"
-      fill="#00a190"
-      viewBox="0 0 24 24"
-      @click="toggleMenu">
-      <path d="M 3 5 A 1.0001 1.0001 0 1 0 3 7 L 21 7 A 1.0001 1.0001 0 1 0 21 5 L 3 5 z M 3 11 A 1.0001 1.0001 0 1 0 3 13 L 21 13 A 1.0001 1.0001 0 1 0 21 11 L 3 11 z M 3 17 A 1.0001 1.0001 0 1 0 3 19 L 21 19 A 1.0001 1.0001 0 1 0 21 17 L 3 17 z"/>
+        v-show="mobile"
+        :class="['menu', {'changed': changed}]"
+        fill="#00a190"
+        viewBox="0 0 24 24"
+        @click="toggleMenu">
+        <path d="M 3 5 A 1.0001 1.0001 0 1 0 3 7 L 21 7 A 1.0001 1.0001 0 1 0 21 5 L 3 5 z M 3 11 A 1.0001 1.0001 0 1 0 3 13 L 21 13 A 1.0001 1.0001 0 1 0 21 11 L 3 11 z M 3 17 A 1.0001 1.0001 0 1 0 3 19 L 21 19 A 1.0001 1.0001 0 1 0 21 17 L 3 17 z"/>
       </svg>
-
+      <DotNotification v-show="changed"/>
       <transition name="menu">
         <div v-show="opened" class="hamburger-menu">
           <nav>
@@ -73,6 +73,13 @@ export default Vue.extend({
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.dot-notification {
+  position: fixed;
+  right: 1.6rem;
+  top: 2rem; 
+  z-index: 3;
+}
+
 .menu {
   width: 33px;
   position: fixed;
@@ -80,21 +87,7 @@ export default Vue.extend({
   top: 0.9rem;
   cursor: pointer;
   transition: 0.3s;
-  z-index: 999;
-}
-
-
-@keyframes changed {
-  0% { fill: $pink; }
-  100% { fill: $green; }
-}
-  
-.changed {
-  -webkit-animation: changed 1s linear infinite;
-  -moz-animation: changed 1s linear infinite;
-  -ms-animation: changed 1s linear infinite;
-  -o-animation: changed 1s linear infinite;
-  animation: changed 1s linear infinite;
+  z-index: 2;
 }
 
 .menu:hover {
