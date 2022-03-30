@@ -60,6 +60,7 @@ export default Vue.extend({
   grid-gap: 1.5rem;
 }
 
+
 .form {
   display: grid;
   grid-gap: 1rem;
@@ -69,6 +70,9 @@ export default Vue.extend({
 }
 
 @include screen('small') {
+  .title {
+    width: 10rem;
+  }
   .logo {
     width: 8rem;
   }
