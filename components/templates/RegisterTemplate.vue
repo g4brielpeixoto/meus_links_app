@@ -9,7 +9,7 @@
         <UsernameInput @changeUsername="changeUsername"/>
         <BaseInput  name="email" type="email" placeholder="E-mail" @changeValue="changeEmail" />
         <PasswordInput @changePassword="changePassword"/>
-        <MainButton type="submit" text="CRIAR CONTA" />
+        <MainButton type="submit" text="CRIAR CONTA" :loading="loading" />
         <Shortcut text="Já tem uma conta?" to="/login"/>
       </form>
     </Container>
@@ -18,13 +18,15 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import baseUrl from '@/utils/baseUrl'
 
 export default Vue.extend({
   data() {
     return {
       username: '',
       email: '',
-      password: ''
+      password: '',
+      loading: false,
     }
   },
   methods: {
@@ -42,9 +44,10 @@ export default Vue.extend({
         username: this.username,
         email: this.email,
         password: this.password,
-        redirectUrl: 'https://meus-links-app.vercel.app/confirm',
+        redirectUrl: `${baseUrl}/confirm`,
       }
 
+      this.loading = true
       await this.$store.dispatch('register', user)
       .then(() => {
         this.$router.push('/admin')
@@ -61,7 +64,7 @@ export default Vue.extend({
           duration: 5000, 
         })
       })
-        
+      this.loading = false
     }
   },
 })
