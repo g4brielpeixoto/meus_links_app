@@ -29,7 +29,10 @@ export const actions: ActionTree<RootState, RootState> = {
 
   async login({ commit }, user: User) {
     const { token } = await this.$axios.$post('/auth', user)
-    this.$cookies.set('token', token)
+    this.$cookies.set('token', token, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 30 // 30 days
+    })
     commit('UPDATE', token) 
   },
 
