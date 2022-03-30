@@ -30,7 +30,8 @@ export default {
   modules: ['@nuxtjs/style-resources', '@nuxtjs/axios', 'cookie-universal-nuxt'],
 
   axios: {
-    baseUrl: 'https://meus-links-backend.herokuapp.com/'
+    baseUrl: process.env.NODE_ENV === 'production' ? 'https://meus-links-backend.herokuapp.com/' :
+    'http://localhost:3333'
   },
 
   build: {}, 
