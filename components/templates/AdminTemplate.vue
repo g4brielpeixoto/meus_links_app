@@ -1,17 +1,34 @@
 <template>
   <div class="admin-template">
     <HamburgerMenu class="mobile-header" :changed="changed">
-      <a v-if="changed" :class="{'changed': changed}" @click="save()">Salvar</a>
-      <a v-else>Salvo</a>
-      <NuxtLink :to="`/${user.username}`">Ver página</NuxtLink>
-      <a @click="logout()">Logout</a>
+      <MenuItem 
+        v-if="changed"
+        text="Salvar" 
+        :highlight="changed"
+        :loading="isSaving"
+        icon="save.svg" 
+        @click="save()"
+      />
+      <MenuItem 
+        v-else
+        text="Salvo"
+        icon="check.svg"
+      />
+      <MenuItem 
+        :to="`/${user.username}`"
+        text="Ver página"
+        icon="logotipo.svg"
+      />
+      <MenuItem
+        text="Logout"
+        icon="logout.svg"
+        :loading="isLogouting"
+        @click="logout()"
+      />
     </HamburgerMenu>
-
     <Header>
       <Logo />
-
       <div class="actions">
-
         <Save v-if="changed" :loading="isSaving" @save="save()"/>
         <Saved v-else />
 
@@ -148,7 +165,7 @@ export default Vue.extend({
       })
     },
 
-    async save() {     
+    async save() {
       const { name, links } = this.user
       this.isSaving = true
       await this.$axios.$put('/register', { name, links }, {

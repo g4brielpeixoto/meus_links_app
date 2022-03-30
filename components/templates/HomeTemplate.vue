@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <HamburgerMenu class="mobile-header">
-      <NuxtLink to="/login">Login</NuxtLink>
-      <NuxtLink to="/register">Criar conta</NuxtLink>
+      <MenuItem to="/login" text="Login" icon="login.svg"/>
+      <MenuItem to="/register" text="Criar conta" icon="register.svg"/>
     </HamburgerMenu>
     <Header class="desktop-header">
       <NuxtLink to="/login">
