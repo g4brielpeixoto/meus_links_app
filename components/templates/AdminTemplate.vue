@@ -26,7 +26,7 @@
         @click="logout()"
       />
     </HamburgerMenu>
-    <Header>
+    <Header :class="{'on-top': onTop}">
       <Logo />
       <div class="actions">
         <Save v-if="changed" :loading="isSaving" @save="save()"/>
@@ -39,8 +39,8 @@
         <SecondButton text="Logout" :loading="isLogouting" @click="logout()"/>
       </div>
     </Header>
-
-    <div class="main">
+    <SkeletonPage v-if="$fetchState.pending"/>
+    <div v-else class="main">
       <Avatar
         :user="user"
         :enable-change="true"
@@ -101,7 +101,8 @@ export default Vue.extend({
       },
       changed: false,
       isSaving: false,
-      isLogouting: false
+      isLogouting: false,
+      onTop: true
     }
   },
   
@@ -135,6 +136,13 @@ export default Vue.extend({
       },
       deep: true
     }
+  },
+
+  mounted () {
+    window.addEventListener('scroll', this.onScroll)
+  },
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.onScroll)
   },
 
   methods: {
@@ -206,6 +214,16 @@ export default Vue.extend({
         headers: { 'Authorization': `bearer ${this.$cookies.get('token') }` }
       })
       this.user.avatar = ''
+    },
+
+    onScroll () {
+      const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop
+      if (currentScrollPosition === 0) {
+        this.onTop = true
+      }
+      else {
+        this.onTop = false
+      }
     }
 
   }
@@ -294,18 +312,24 @@ export default Vue.extend({
     padding-top: 7rem;
   }
   
+
   .header {
     height: 4rem;  
     position: fixed;
     box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.2);
     z-index: 900;
     background-color: $white;
+    transition: 0.3s;
     .logo {
       width: 8rem;
     }
     .actions {
       visibility: hidden;
     }
+  }
+
+  .on-top {
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0);
   }
 
   .mobile-header {
