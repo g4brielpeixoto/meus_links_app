@@ -1,6 +1,7 @@
 <template>
   <div class="admin-template">
     <HamburgerMenu class="mobile-header" :changed="changed">
+      
       <MenuItem 
         v-if="changed"
         text="Salvar" 
@@ -26,6 +27,7 @@
         @click="logout()"
       />
     </HamburgerMenu>
+
     <Header :class="{'on-top': onTop}">
       <Logo />
       <div class="actions">
@@ -39,7 +41,9 @@
         <SecondButton text="Logout" :loading="isLogouting" @click="logout()"/>
       </div>
     </Header>
+
     <SkeletonPage v-if="$fetchState.pending"/>
+
     <div v-else class="main">
       <Avatar
         :user="user"
@@ -54,7 +58,7 @@
           class="name" 
           name="Nome" 
           type="text" 
-          placeholder="Como quer ser chamado?"
+          placeholder="Seu nome"
         />
         <SubTitle :text="`@${user.username}`"/>
       </div>
@@ -274,6 +278,7 @@ export default Vue.extend({
 .main {
   display: grid;
   margin: 0 auto;
+  padding-top: 5rem;
   justify-items: center;
   grid-gap: 1.25rem;
   
@@ -307,33 +312,33 @@ export default Vue.extend({
   }
 }
 
-@include screen('small') {
-  .main {
-    padding-top: 7rem;
-  }
-  
-
-  .header {
+.header {
     height: 4rem;  
     position: fixed;
     box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.2);
-    z-index: 900;
+    z-index: 5;
     background-color: $white;
     transition: 0.3s;
-    .logo {
-      width: 8rem;
-    }
-    .actions {
-      visibility: hidden;
-    }
   }
 
   .on-top {
     box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0);
   }
 
+@include screen('small') {
+  .header {
+    .logo {
+      width: 7rem;
+    }
+  }
+  .actions {
+    visibility: hidden;
+  }
+  .on-top {
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0);
+  }
   .mobile-header {
-    z-index: 999;
+    z-index: 6;
   }
 }
 
