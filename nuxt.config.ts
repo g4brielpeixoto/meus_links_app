@@ -19,6 +19,7 @@ export default {
 
   components: [
     '@/components/atoms',
+    '@/components/atoms/skeleton',
     '@/components/bosons',
     '@/components/molecules',
     '@/components/organisms',

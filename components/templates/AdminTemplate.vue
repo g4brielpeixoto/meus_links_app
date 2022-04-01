@@ -42,42 +42,45 @@
       </div>
     </Header>
 
-    <SkeletonPage v-if="$fetchState.pending"/>
+    <div class="main">
+      <AdminSkeleton v-if="$fetchState.pending"/>
 
-    <div v-else class="main">
-      <Avatar
-        :user="user"
-        :enable-change="true"
-        @submited="uploadAvatar"
-        @delete="deleteAvatar"
-      />
-      
-      <div class="user-info">
-        <input  
-          v-model="user.name" 
-          class="name" 
-          name="Nome" 
-          type="text" 
-          placeholder="Seu nome"
+      <div v-else class="content">
+        <Avatar
+          :user="user"
+          :enable-change="true"
+          @submited="uploadAvatar"
+          @delete="deleteAvatar"
         />
-        <SubTitle :text="`@${user.username}`"/>
-      </div>
-      
-      <AddLink text="+ Adicionar novo link" @click="addLink"/>
-      <EmptyList v-show="isEmpty"/>
-      <Draggable :list="user.links" handle=".handle">
-        <transition-group class="list" name="flip-list">
-          <LinkEditor  
-            v-for="link in user.links"
-            :key="link.id"
-            :link-prop="link"
-            @delete="deleteLink(link)"
-            @changed="changeLink"
+        
+        <div class="user-info">
+          <input  
+            v-model="user.name" 
+            class="name" 
+            name="Nome" 
+            type="text" 
+            placeholder="Seu nome"
           />
-        </transition-group>
-      </Draggable>
+          <SubTitle :text="`@${user.username}`"/>
+        </div>
+        
+        <AddLink text="+ Adicionar novo link" @click="addLink"/>
+        <EmptyList v-show="isEmpty"/>
+        <Draggable :list="user.links" handle=".handle">
+          <transition-group class="list" name="flip-list">
+            <LinkEditor  
+              v-for="link in user.links"
+              :key="link.id"
+              :link-prop="link"
+              @delete="deleteLink(link)"
+              @changed="changeLink"
+            />
+          </transition-group>
+        </Draggable>
 
-    </div> 
+      </div> 
+
+    </div>
   </div>
 </template>
 
@@ -276,9 +279,12 @@ export default Vue.extend({
 }
 
 .main {
+  padding-top: 5rem;
+}
+
+.content {
   display: grid;
   margin: 0 auto;
-  padding-top: 5rem;
   justify-items: center;
   grid-gap: 1.25rem;
   
