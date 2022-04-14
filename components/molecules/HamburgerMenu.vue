@@ -56,7 +56,10 @@ export default Vue.extend({
   methods: {
     onResize() {
       if(window.innerWidth < 600) this.mobile = true
-      else this.mobile = false
+      else {
+        this.mobile = false
+        if(this.opened) this.opened = false
+      }
     },
     toggleMenu() { 
       this.opened = !this.opened
