@@ -1,3 +1,5 @@
+@import 'cropperjs/dist/cropper.css';
+
 @font-face {
   font-family: Lufga;
   src: url('@/assets/fonts/LUFGA-REGULAR.OTF');
@@ -22,6 +24,8 @@ body {
   font-size: 1rem;
   padding-bottom: 10.9rem;
   font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+
 }
 
 html {
@@ -68,3 +72,23 @@ body {
     background: #22bb33;
   }
 }
+
+.cropper-view-box,
+.cropper-face {
+  border-radius: 50%;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $white;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $darkGray;
+  border-radius: 4px;
+}
+
+

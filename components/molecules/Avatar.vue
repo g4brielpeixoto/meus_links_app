@@ -1,12 +1,14 @@
 <template>
-  <div class="avatar" @mouseenter="show = true" @mouseleave="show = false">
+  <div class="avatar" @mouseenter="showAvatarChanger = true" @mouseleave="showAvatarChanger = false">
     <transition>
-      <div v-if="enableChange && show" class="change-avatar" >
-        <div>
-          <label for="avatar" class="actions update-avatar">Trocar foto</label>
-          <input id="avatar" ref="file" type="file" @input="$emit('submited', $event)">
+      <div v-if="enableChange && showAvatarChanger" class="change-avatar" >
+        <div class="actions" @click="$emit('showAvatarCropper')">
+          <img src="@/assets/images/camera.svg" alt="camera-icon" class="camera">
+          <p>Alterar foto</p>
+          <!-- <label for="avatar" class="actions update-avatar">Trocar foto</label>
+          <input id="avatar" ref="file" type="file" @input="$emit('submited', $event)"> -->
         </div>
-        <p v-show="user.avatar" class="actions delete-avatar" @click="$emit('delete')">Deletar foto</p>
+        <!-- <p v-show="user.avatar" class="actions delete-avatar" @click="$emit('delete')">Deletar foto</p> -->
       </div>
     </transition>
     <img :src="user.avatar ? user.avatarUrl : require('@/assets/images/avatar.png')" :alt="user.name" class="image">
@@ -29,7 +31,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      show: false
+      showAvatarChanger: false,
     }
   }
 })
@@ -54,17 +56,20 @@ export default Vue.extend({
     color: $white;
     display: grid;
     justify-items: center;
-    align-items: center;
     align-content: center;
-    grid-gap: 0.7rem;
     input {
       display: none;
     }
     .actions {
       cursor: pointer;
-      &:hover {
-        text-decoration: underline;
-      } 
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      .camera {
+        width: 3rem;
+        height: 3rem;
+      }
+
     }
   }
 

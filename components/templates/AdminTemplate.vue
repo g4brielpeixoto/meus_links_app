@@ -1,5 +1,11 @@
 <template>
   <div class="admin-template">
+    <AvatarCropper 
+      v-if="showAvatarCropper"
+      :show="showAvatarCropper"
+      @close="showAvatarCropper = false"
+      @imageCropped="showAvatarCropper = false; avatar = imageSource"
+    />
     <HamburgerMenu class="mobile-header" :changed="changed">
       
       <MenuItem 
@@ -8,7 +14,7 @@
         :highlight="changed"
         :loading="isSaving"
         icon="save.svg" 
-        @click="save()"
+        @click="save()" 
       />
       <MenuItem 
         v-else
@@ -49,8 +55,9 @@
         <Avatar
           :user="user"
           :enable-change="true"
-          @submited="uploadAvatar"
+          @submitted="uploadAvatar"
           @delete="deleteAvatar"
+          @showAvatarCropper="showAvatarCropper = !showAvatarCropper"
         />
         
         <div class="user-info">
@@ -88,7 +95,7 @@
 
 import Vue from 'vue'
 import Draggable from 'vuedraggable'
-import { Link } from '@/Models'
+import { Link } from '@/models'
 import { $cookies } from '@/utils/nuxt-instance'
 
 export default Vue.extend({
@@ -109,7 +116,8 @@ export default Vue.extend({
       changed: false,
       isSaving: false,
       isLogouting: false,
-      onTop: true
+      onTop: true,
+      showAvatarCropper: false
     }
   },
   

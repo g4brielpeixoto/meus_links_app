@@ -19,11 +19,10 @@ export default {
 
   components: [
     '@/components/atoms',
-    '@/components/atoms/skeleton',
     '@/components/bosons',
     '@/components/molecules',
     '@/components/organisms',
-    '@/components/templates',
+    '@/components/templates'
   ],
 
   buildModules: ['@nuxt/typescript-build'],
@@ -31,11 +30,13 @@ export default {
   modules: ['@nuxtjs/style-resources', '@nuxtjs/axios', 'cookie-universal-nuxt'],
 
   axios: {
-    baseUrl: process.env.NODE_ENV === 'production' ? 'https://meus-links-backend.herokuapp.com/' :
-    'http://localhost:3333'
+    baseUrl:
+      process.env.NODE_ENV === 'production'
+        ? 'https://meus-links-backend.herokuapp.com/'
+        : 'http://localhost:3333'
   },
 
-  build: {}, 
+  build: {},
 
   styleResources: {
     // your settings here

@@ -129,7 +129,7 @@ export default Vue.extend({
 }
 .menu-enter-from,
 .menu-leave-to {
-  transform: translateX(250px);
+  transform: translateX(250px); 
 }
 
 .background-enter-active,

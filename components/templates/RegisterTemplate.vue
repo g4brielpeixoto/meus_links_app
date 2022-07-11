@@ -60,7 +60,7 @@ export default Vue.extend({
       .catch((error) => {
         this.$notify({
           type: 'error',
-          text: error.response.data.errors[0].message,
+          text: error.response.data.errors ? error.response.data.errors[0].message : 'Ocorreu um erro ao criar sua conta, tente novamente mais tarde.',
           duration: 5000, 
         })
       })

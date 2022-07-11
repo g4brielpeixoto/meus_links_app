@@ -61,7 +61,7 @@ export default Vue.extend({
   .logotipo {
     width: 17px;
   }
-  &-input:focus-within {
+  &:focus-within {
     border: solid 2px $black;
   }
 }
